@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Thirdrecord
-# Generated: Thu Oct  8 17:00:30 2015
+# Generated: Fri Oct  9 10:02:47 2015
 ##################################################
 
 if __name__ == '__main__':
@@ -57,7 +57,7 @@ class ThirdRecord(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.prefix = prefix = "/home/michel/seti_"
+        self.prefix = prefix = "/home/michel/seti/seti_"
         self.samp_rate = samp_rate = 2.4e6
         self.recfile = recfile = prefix + datetime.now().strftime("%Y.%m.%d_%H.%M.%S") + ".log"
         self.fftsize = fftsize = pow(2,12)
