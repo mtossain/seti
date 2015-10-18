@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Sun Oct 18 14:41:46 2015
+# Generated: Sun Oct 18 19:45:27 2015
 ##################################################
 
 if __name__ == '__main__':
@@ -47,13 +47,13 @@ class top_block(grc_wxgui.top_block_gui):
         ##################################################
         self.samp_rate = samp_rate = 10e6
         self.record = record = 1
-        self.intamp = intamp = 0.0001
-        self.fftsize = fftsize = 1024
+        self.intamp = intamp = 20e-6
+        self.fftsize = fftsize = pow(2,11)
 
         ##################################################
         # Blocks
         ##################################################
-        self.blocks_threshold_ff_0 = blocks.threshold_ff(40, 50, 0)
+        self.blocks_threshold_ff_0 = blocks.threshold_ff(-1000, -80, 0)
         def _record_probe():
             while True:
                 val = self.blocks_threshold_ff_0.last_state()
@@ -81,7 +81,7 @@ class top_block(grc_wxgui.top_block_gui):
         	value=self.intamp,
         	callback=self.set_intamp,
         	minimum=0,
-        	maximum=0.01,
+        	maximum=0.001,
         	num_steps=100,
         	style=wx.SL_HORIZONTAL,
         	cast=float,
@@ -97,33 +97,34 @@ class top_block(grc_wxgui.top_block_gui):
         	ref_scale=2.0,
         	sample_rate=samp_rate,
         	fft_size=1024,
-        	fft_rate=5,
-        	average=False,
-        	avg_alpha=None,
+        	fft_rate=10,
+        	average=True,
+        	avg_alpha=0.01,
         	title="FFT Plot",
         	peak_hold=False,
+        	win=window.blackmanharris,
         )
         self.Add(self.wxgui_fftsink2_0.win)
         self.osmosdr_source_0 = osmosdr.source( args="numchan=" + str(1) + " " + "" )
         self.osmosdr_source_0.set_sample_rate(samp_rate)
         self.osmosdr_source_0.set_center_freq(1420e6, 0)
         self.osmosdr_source_0.set_freq_corr(0, 0)
-        self.osmosdr_source_0.set_dc_offset_mode(0, 0)
+        self.osmosdr_source_0.set_dc_offset_mode(2, 0)
         self.osmosdr_source_0.set_iq_balance_mode(2, 0)
         self.osmosdr_source_0.set_gain_mode(True, 0)
         self.osmosdr_source_0.set_gain(10, 0)
         self.osmosdr_source_0.set_if_gain(10, 0)
         self.osmosdr_source_0.set_bb_gain(10, 0)
         self.osmosdr_source_0.set_antenna("", 0)
-        self.osmosdr_source_0.set_bandwidth(10e6, 0)
+        self.osmosdr_source_0.set_bandwidth(15e6, 0)
           
         self.logpwrfft_x_0 = logpwrfft.logpwrfft_c(
         	sample_rate=samp_rate,
         	fft_size=fftsize,
         	ref_scale=2,
         	frame_rate=30,
-        	avg_alpha=1.0,
-        	average=False,
+        	avg_alpha=0.01,
+        	average=True,
         )
         self.blocks_vector_to_stream_0 = blocks.vector_to_stream(gr.sizeof_float*1, fftsize)
         self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_float*1)
@@ -131,8 +132,7 @@ class top_block(grc_wxgui.top_block_gui):
         self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_gr_complex*1, "/home/michel/test.dat", False)
         self.blocks_file_sink_0.set_unbuffered(False)
         self.blocks_add_xx_0 = blocks.add_vcc(1)
-        self.blocks_add_const_vxx_0 = blocks.add_const_vff((160, ))
-        self.blks2_valve_0 = grc_blks2.valve(item_size=gr.sizeof_gr_complex*1, open=bool(record))
+        self.blks2_valve_0 = grc_blks2.valve(item_size=gr.sizeof_gr_complex*1, open=bool(1-record))
         self.analog_sig_source_x_0 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, 1421e6, intamp, 0)
 
         ##################################################
@@ -140,13 +140,12 @@ class top_block(grc_wxgui.top_block_gui):
         ##################################################
         self.connect((self.analog_sig_source_x_0, 0), (self.blocks_add_xx_0, 1))    
         self.connect((self.blks2_valve_0, 0), (self.blocks_head_0, 0))    
-        self.connect((self.blocks_add_const_vxx_0, 0), (self.blocks_threshold_ff_0, 0))    
         self.connect((self.blocks_add_xx_0, 0), (self.blks2_valve_0, 0))    
         self.connect((self.blocks_add_xx_0, 0), (self.logpwrfft_x_0, 0))    
         self.connect((self.blocks_add_xx_0, 0), (self.wxgui_fftsink2_0, 0))    
         self.connect((self.blocks_head_0, 0), (self.blocks_file_sink_0, 0))    
         self.connect((self.blocks_threshold_ff_0, 0), (self.blocks_null_sink_0, 0))    
-        self.connect((self.blocks_vector_to_stream_0, 0), (self.blocks_add_const_vxx_0, 0))    
+        self.connect((self.blocks_vector_to_stream_0, 0), (self.blocks_threshold_ff_0, 0))    
         self.connect((self.logpwrfft_x_0, 0), (self.blocks_vector_to_stream_0, 0))    
         self.connect((self.osmosdr_source_0, 0), (self.blocks_add_xx_0, 0))    
 
@@ -166,7 +165,7 @@ class top_block(grc_wxgui.top_block_gui):
 
     def set_record(self, record):
         self.record = record
-        self.blks2_valve_0.set_open(bool(self.record))
+        self.blks2_valve_0.set_open(bool(1-self.record))
 
     def get_intamp(self):
         return self.intamp
