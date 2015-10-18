@@ -10,6 +10,8 @@ os.system(command)
 command = "python heatmap.py --ytick 60s data"+now+".csv power"+now+".png"
 print (time.strftime("%Y-%m-%d %H:%M:%S ") + command)
 os.system(command)
+os.system("mv power*.png ../Share/")
+os.system("mv max*.png ../Share/")
 
 # Repeat every hour
 while True:
@@ -28,5 +30,7 @@ while True:
     command = "python heatmap.py --ytick 60s data"+now+".csv power"+now+".png"
     print (time.strftime("%Y-%m-%d %H:%M:%S ") + command)
     os.system(command)
+    os.system("mv power*.png ../Share/")
+    os.system("mv max*.png ../Share/")
     
 

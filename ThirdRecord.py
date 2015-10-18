@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Thirdrecord
-# Generated: Fri Oct  9 10:02:47 2015
+# Generated: Sun Oct 18 14:07:46 2015
 ##################################################
 
 if __name__ == '__main__':
@@ -20,11 +20,13 @@ from datetime import datetime
 from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import gr
+from gnuradio import qtgui
 from gnuradio.eng_option import eng_option
 from gnuradio.fft import logpwrfft
 from gnuradio.filter import firdes
 from optparse import OptionParser
 import osmosdr
+import sip
 import sys
 import time
 
@@ -36,9 +38,9 @@ class ThirdRecord(gr.top_block, Qt.QWidget):
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Thirdrecord")
         try:
-            self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
+             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
         except:
-            pass
+             pass
         self.top_scroll_layout = Qt.QVBoxLayout()
         self.setLayout(self.top_scroll_layout)
         self.top_scroll = Qt.QScrollArea()
@@ -65,6 +67,42 @@ class ThirdRecord(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
+        self.qtgui_vector_sink_f_0 = qtgui.vector_sink_f(
+            fftsize,
+            0,
+            1.0,
+            "x-Axis",
+            "y-Axis",
+            "",
+            1 # Number of inputs
+        )
+        self.qtgui_vector_sink_f_0.set_update_time(0.10)
+        self.qtgui_vector_sink_f_0.set_y_axis(-140, 10)
+        self.qtgui_vector_sink_f_0.enable_autoscale(False)
+        self.qtgui_vector_sink_f_0.enable_grid(False)
+        self.qtgui_vector_sink_f_0.set_x_axis_units("")
+        self.qtgui_vector_sink_f_0.set_y_axis_units("")
+        self.qtgui_vector_sink_f_0.set_ref_level(0)
+        
+        labels = ["", "", "", "", "",
+                  "", "", "", "", ""]
+        widths = [1, 1, 1, 1, 1,
+                  1, 1, 1, 1, 1]
+        colors = ["blue", "red", "green", "black", "cyan",
+                  "magenta", "yellow", "dark red", "dark green", "dark blue"]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+        for i in xrange(1):
+            if len(labels[i]) == 0:
+                self.qtgui_vector_sink_f_0.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_vector_sink_f_0.set_line_label(i, labels[i])
+            self.qtgui_vector_sink_f_0.set_line_width(i, widths[i])
+            self.qtgui_vector_sink_f_0.set_line_color(i, colors[i])
+            self.qtgui_vector_sink_f_0.set_line_alpha(i, alphas[i])
+        
+        self._qtgui_vector_sink_f_0_win = sip.wrapinstance(self.qtgui_vector_sink_f_0.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._qtgui_vector_sink_f_0_win)
         self.osmosdr_source_0 = osmosdr.source( args="numchan=" + str(1) + " " + "" )
         self.osmosdr_source_0.set_sample_rate(samp_rate)
         self.osmosdr_source_0.set_center_freq(1420e6, 0)
@@ -100,6 +138,7 @@ class ThirdRecord(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_float_to_char_0, 0), (self.blocks_stream_to_vector_2, 0))    
         self.connect((self.blocks_stream_to_vector_2, 0), (self.blocks_file_sink_0, 0))    
         self.connect((self.blocks_sub_xx_0, 0), (self.blocks_vector_to_stream_0, 0))    
+        self.connect((self.blocks_sub_xx_0, 0), (self.qtgui_vector_sink_f_0, 0))    
         self.connect((self.blocks_vector_source_x_0, 0), (self.blocks_sub_xx_0, 1))    
         self.connect((self.blocks_vector_to_stream_0, 0), (self.blocks_float_to_char_0, 0))    
         self.connect((self.logpwrfft_x_0, 0), (self.blocks_sub_xx_0, 0))    
@@ -109,7 +148,6 @@ class ThirdRecord(gr.top_block, Qt.QWidget):
         self.settings = Qt.QSettings("GNU Radio", "ThirdRecord")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
-
 
     def get_prefix(self):
         return self.prefix
@@ -138,18 +176,17 @@ class ThirdRecord(gr.top_block, Qt.QWidget):
 
     def set_fftsize(self, fftsize):
         self.fftsize = fftsize
-        self.blocks_vector_source_x_0.set_data([0]*self.fftsize, [])
+        self.blocks_vector_source_x_0.set_data([0]*self.fftsize)
 
 
-def main(top_block_cls=ThirdRecord, options=None):
-
+if __name__ == '__main__':
+    parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
+    (options, args) = parser.parse_args()
     from distutils.version import StrictVersion
     if StrictVersion(Qt.qVersion()) >= StrictVersion("4.5.0"):
-        style = gr.prefs().get_string('qtgui', 'style', 'raster')
-        Qt.QApplication.setGraphicsSystem(style)
+        Qt.QApplication.setGraphicsSystem(gr.prefs().get_string('qtgui','style','raster'))
     qapp = Qt.QApplication(sys.argv)
-
-    tb = top_block_cls()
+    tb = ThirdRecord()
     tb.start()
     tb.show()
 
@@ -158,7 +195,4 @@ def main(top_block_cls=ThirdRecord, options=None):
         tb.wait()
     qapp.connect(qapp, Qt.SIGNAL("aboutToQuit()"), quitting)
     qapp.exec_()
-
-
-if __name__ == '__main__':
-    main()
+    tb = None  # to clean up Qt widgets
