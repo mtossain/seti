@@ -81,7 +81,61 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(296, 11)</value>
+      <value>(968, 11)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>datafile</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>prefixdata + datetime.now().strftime("%Y.%m.%d_%H.%M.%S") + ".log"</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(616, 11)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>fftfile</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>prefixfft + datetime.now().strftime("%Y.%m.%d_%H.%M.%S") + ".log"</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(264, 11)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -100,7 +154,8 @@
     <key>variable_slider</key>
     <param>
       <key>comment</key>
-      <value></value>
+      <value>To inject artificial
+SETI Signal</value>
     </param>
     <param>
       <key>converver</key>
@@ -116,7 +171,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(832, 355)</value>
+      <value>(984, 91)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -156,6 +211,60 @@
     </param>
   </block>
   <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(800, 11)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>prefixdata</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>"/media/michel/SETI/data_"</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(464, 11)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>prefixfft</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>"/media/michel/SETI/fft_"</value>
+    </param>
+  </block>
+  <block>
     <key>variable_function_probe</key>
     <param>
       <key>block_id</key>
@@ -163,7 +272,8 @@
     </param>
     <param>
       <key>comment</key>
-      <value></value>
+      <value>Copies threshold value
+to variable record</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -179,7 +289,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(608, 355)</value>
+      <value>(808, 91)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -195,7 +305,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>1</value>
+      <value>0</value>
     </param>
   </block>
   <block>
@@ -210,7 +320,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(192, 11)</value>
+      <value>(176, 11)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -237,7 +347,7 @@
     </param>
     <param>
       <key>comment</key>
-      <value></value>
+      <value>To inject artificial signal for testing</value>
     </param>
     <param>
       <key>affinity</key>
@@ -253,7 +363,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(96, 355)</value>
+      <value>(24, 475)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -296,7 +406,8 @@
     </param>
     <param>
       <key>comment</key>
-      <value></value>
+      <value>Note threshold value
+is inverted here</value>
     </param>
     <param>
       <key>affinity</key>
@@ -308,7 +419,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(440, 267)</value>
+      <value>(352, 491)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -359,7 +470,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(296, 257)</value>
+      <value>(208, 417)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -414,11 +525,11 @@
     </param>
     <param>
       <key>file</key>
-      <value>/home/michel/test.dat</value>
+      <value>datafile</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(808, 251)</value>
+      <value>(672, 475)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -435,6 +546,104 @@
     <param>
       <key>unbuffered</key>
       <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_file_sink</key>
+    <param>
+      <key>append</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>file</key>
+      <value>fftfile</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(968, 547)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_file_sink_0_0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>byte</value>
+    </param>
+    <param>
+      <key>unbuffered</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>fftsize</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_float_to_char</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(832, 371)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_float_to_char_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>scale</key>
+      <value>1</value>
     </param>
     <param>
       <key>vlen</key>
@@ -461,7 +670,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(592, 267)</value>
+      <value>(480, 491)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -481,7 +690,7 @@
     </param>
     <param>
       <key>num_items</key>
-      <value>1024</value>
+      <value>10000*fftsize</value>
     </param>
     <param>
       <key>type</key>
@@ -493,14 +702,10 @@
     </param>
   </block>
   <block>
-    <key>blocks_null_sink</key>
+    <key>blocks_keep_m_in_n</key>
     <param>
       <key>alias</key>
       <value></value>
-    </param>
-    <param>
-      <key>bus_conns</key>
-      <value>[[0,],]</value>
     </param>
     <param>
       <key>comment</key>
@@ -516,7 +721,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(968, 137)</value>
+      <value>(984, 355)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -524,15 +729,78 @@
     </param>
     <param>
       <key>id</key>
-      <value>blocks_null_sink_0</value>
+      <value>blocks_keep_m_in_n_0</value>
+    </param>
+    <param>
+      <key>m</key>
+      <value>fftsize</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>n</key>
+      <value>100*fftsize</value>
     </param>
     <param>
       <key>type</key>
-      <value>float</value>
+      <value>byte</value>
     </param>
     <param>
-      <key>num_inputs</key>
+      <key>offset</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_stream_to_vector</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
       <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(976, 467)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_stream_to_vector_0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>byte</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>num_items</key>
+      <value>fftsize</value>
     </param>
     <param>
       <key>vlen</key>
@@ -559,7 +827,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(800, 115)</value>
+      <value>(680, 355)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -567,7 +835,7 @@
     </param>
     <param>
       <key>high</key>
-      <value>-80</value>
+      <value>-78</value>
     </param>
     <param>
       <key>id</key>
@@ -606,11 +874,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(592, 131)</value>
+      <value>(504, 371)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -639,6 +907,159 @@
     <param>
       <key>vlen</key>
       <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>fft_filter_xxx</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value>HPF for subtracting 
+DC peak
+Stop band 1e3
+Pass band 5e4
+Attn 10dB</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>decim</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(528, 131)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>fft_filter_xxx_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>nthreads</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>samp_delay</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>taps</key>
+      <value>[-0.0010990326991304755, -0.0011334356386214495, -0.0011985328746959567, -0.001295603928156197, -0.0014257250586524606, -0.0015897577395662665, -0.0017883378313854337, -0.002021867549046874, -0.002290506847202778, -0.0025941694620996714, -0.0029325177893042564, -0.003304962767288089, -0.0037106613162904978, -0.004148522391915321, -0.0046172053553164005, -0.005115131381899118, -0.005640486720949411, -0.006191234104335308, -0.006765123922377825, -0.007359706796705723, -0.007972347550094128, -0.00860024243593216, -0.00924043171107769, -0.009889830835163593, -0.010545231401920319, -0.011203338392078876, -0.011860785074532032, -0.012514152564108372, -0.01316000148653984, -0.013794880360364914, -0.01441536657512188, -0.015018078498542309, -0.015599698759615421, -0.016157003119587898, -0.016686875373125076, -0.01718633621931076, -0.017652561888098717, -0.01808289811015129, -0.0184748824685812, -0.01882627233862877, -0.019135037437081337, -0.01939939707517624, -0.019617818295955658, -0.019789034500718117, -0.019912049174308777, -0.019986147060990334, 1.9810783863067627, -0.019986147060990334, -0.019912049174308777, -0.019789034500718117, -0.019617818295955658, -0.01939939707517624, -0.019135037437081337, -0.01882627233862877, -0.0184748824685812, -0.01808289811015129, -0.017652561888098717, -0.01718633621931076, -0.016686875373125076, -0.016157003119587898, -0.015599698759615421, -0.015018078498542309, -0.01441536657512188, -0.013794880360364914, -0.01316000148653984, -0.012514152564108372, -0.011860785074532032, -0.011203338392078876, -0.010545231401920319, -0.009889830835163593, -0.00924043171107769, -0.00860024243593216, -0.007972347550094128, -0.007359706796705723, -0.006765123922377825, -0.006191234104335308, -0.005640486720949411, -0.005115131381899118, -0.0046172053553164005, -0.004148522391915321, -0.0037106613162904978, -0.003304962767288089, -0.0029325177893042564, -0.0025941694620996714, -0.002290506847202778, -0.002021867549046874, -0.0017883378313854337, -0.0015897577395662665, -0.0014257250586524606, -0.001295603928156197, -0.0011985328746959567, -0.0011334356386214495, -0.0010990326991304755]</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>ccc</value>
+    </param>
+  </block>
+  <block>
+    <key>fft_filter_xxx</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value>LPF for subtracting end of band</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>decim</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(296, 139)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>fft_filter_xxx_1</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>nthreads</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>samp_delay</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>taps</key>
+      <value>[0.07469794899225235, 1.8506040573120117, 0.07469794899225235]</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>ccc</value>
+    </param>
+  </block>
+  <block>
+    <key>import</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(352, 11)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>import_0</value>
+    </param>
+    <param>
+      <key>import</key>
+      <value>from datetime import datetime</value>
     </param>
   </block>
   <block>
@@ -677,7 +1098,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(400, 91)</value>
+      <value>(312, 331)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2012,7 +2433,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(16, 115)</value>
+      <value>(8, 83)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2155,7 +2576,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(400, 355)</value>
+      <value>(312, 603)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2249,20 +2670,50 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>blocks_float_to_char_0</source_block_id>
+    <sink_block_id>blocks_keep_m_in_n_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>blocks_head_0</source_block_id>
     <sink_block_id>blocks_file_sink_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>blocks_keep_m_in_n_0</source_block_id>
+    <sink_block_id>blocks_stream_to_vector_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_stream_to_vector_0</source_block_id>
+    <sink_block_id>blocks_file_sink_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>blocks_threshold_ff_0</source_block_id>
-    <sink_block_id>blocks_null_sink_0</sink_block_id>
+    <sink_block_id>blocks_float_to_char_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_vector_to_stream_0</source_block_id>
     <sink_block_id>blocks_threshold_ff_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fft_filter_xxx_0</source_block_id>
+    <sink_block_id>blocks_add_xx_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fft_filter_xxx_1</source_block_id>
+    <sink_block_id>fft_filter_xxx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -2274,7 +2725,7 @@
   </connection>
   <connection>
     <source_block_id>osmosdr_source_0</source_block_id>
-    <sink_block_id>blocks_add_xx_0</sink_block_id>
+    <sink_block_id>fft_filter_xxx_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
