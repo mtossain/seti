@@ -81,7 +81,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(968, 11)</value>
+      <value>(824, 11)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -93,7 +93,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>prefixdata + datetime.now().strftime("%Y.%m.%d_%H.%M.%S") + ".log"</value>
+      <value>prefix+"/data_" + datetime.now().strftime("%Y.%m.%d_%H.%M.%S") + ".log"</value>
     </param>
   </block>
   <block>
@@ -108,7 +108,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(616, 11)</value>
+      <value>(648, 11)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -120,7 +120,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>prefixfft + datetime.now().strftime("%Y.%m.%d_%H.%M.%S") + ".log"</value>
+      <value>prefix+"/fft_" + datetime.now().strftime("%Y.%m.%d_%H.%M.%S") + ".log"</value>
     </param>
   </block>
   <block>
@@ -222,33 +222,6 @@ SETI Signal</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(800, 11)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>prefixdata</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"/media/michel/SETI/data_"</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
       <value>(464, 11)</value>
     </param>
     <param>
@@ -257,11 +230,11 @@ SETI Signal</value>
     </param>
     <param>
       <key>id</key>
-      <value>prefixfft</value>
+      <value>prefix</value>
     </param>
     <param>
       <key>value</key>
-      <value>"/media/michel/SETI/fft_"</value>
+      <value>"/media/michel/SETI/" + datetime.now().strftime("%Y/%Y%m%d") </value>
     </param>
   </block>
   <block>
@@ -835,7 +808,7 @@ is inverted here</value>
     </param>
     <param>
       <key>high</key>
-      <value>-78</value>
+      <value>-80</value>
     </param>
     <param>
       <key>id</key>
@@ -917,11 +890,9 @@ is inverted here</value>
     </param>
     <param>
       <key>comment</key>
-      <value>HPF for subtracting 
-DC peak
-Stop band 1e3
-Pass band 5e4
-Attn 10dB</value>
+      <value>HPF for subtracting  DC peak
+Stop 1e3, Pass 5e4, Attn 5dB
+Number of taps: 47</value>
     </param>
     <param>
       <key>affinity</key>
@@ -933,11 +904,11 @@ Attn 10dB</value>
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(528, 131)</value>
+      <value>(552, 99)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -965,7 +936,7 @@ Attn 10dB</value>
     </param>
     <param>
       <key>taps</key>
-      <value>[-0.0010990326991304755, -0.0011334356386214495, -0.0011985328746959567, -0.001295603928156197, -0.0014257250586524606, -0.0015897577395662665, -0.0017883378313854337, -0.002021867549046874, -0.002290506847202778, -0.0025941694620996714, -0.0029325177893042564, -0.003304962767288089, -0.0037106613162904978, -0.004148522391915321, -0.0046172053553164005, -0.005115131381899118, -0.005640486720949411, -0.006191234104335308, -0.006765123922377825, -0.007359706796705723, -0.007972347550094128, -0.00860024243593216, -0.00924043171107769, -0.009889830835163593, -0.010545231401920319, -0.011203338392078876, -0.011860785074532032, -0.012514152564108372, -0.01316000148653984, -0.013794880360364914, -0.01441536657512188, -0.015018078498542309, -0.015599698759615421, -0.016157003119587898, -0.016686875373125076, -0.01718633621931076, -0.017652561888098717, -0.01808289811015129, -0.0184748824685812, -0.01882627233862877, -0.019135037437081337, -0.01939939707517624, -0.019617818295955658, -0.019789034500718117, -0.019912049174308777, -0.019986147060990334, 1.9810783863067627, -0.019986147060990334, -0.019912049174308777, -0.019789034500718117, -0.019617818295955658, -0.01939939707517624, -0.019135037437081337, -0.01882627233862877, -0.0184748824685812, -0.01808289811015129, -0.017652561888098717, -0.01718633621931076, -0.016686875373125076, -0.016157003119587898, -0.015599698759615421, -0.015018078498542309, -0.01441536657512188, -0.013794880360364914, -0.01316000148653984, -0.012514152564108372, -0.011860785074532032, -0.011203338392078876, -0.010545231401920319, -0.009889830835163593, -0.00924043171107769, -0.00860024243593216, -0.007972347550094128, -0.007359706796705723, -0.006765123922377825, -0.006191234104335308, -0.005640486720949411, -0.005115131381899118, -0.0046172053553164005, -0.004148522391915321, -0.0037106613162904978, -0.003304962767288089, -0.0029325177893042564, -0.0025941694620996714, -0.002290506847202778, -0.002021867549046874, -0.0017883378313854337, -0.0015897577395662665, -0.0014257250586524606, -0.001295603928156197, -0.0011985328746959567, -0.0011334356386214495, -0.0010990326991304755]</value>
+      <value>[-0.0014632951933890581, -0.0015535193961113691, -0.0018020645948126912, -0.0022076936438679695, -0.002765862736850977, -0.0034687770530581474, -0.00430551590397954, -0.005262230988591909, -0.006322409026324749, -0.007467187475413084, -0.008675739169120789, -0.00992568675428629, -0.011193564161658287, -0.012455292977392673, -0.01368669979274273, -0.014863998629152775, -0.015964314341545105, -0.01696615293622017, -0.01784985512495041, -0.01859801821410656, -0.01919587515294552, -0.019631586968898773, -0.019896524026989937, 1.9785568714141846, -0.019896524026989937, -0.019631586968898773, -0.01919587515294552, -0.01859801821410656, -0.01784985512495041, -0.01696615293622017, -0.015964314341545105, -0.014863998629152775, -0.01368669979274273, -0.012455292977392673, -0.011193564161658287, -0.00992568675428629, -0.008675739169120789, -0.007467187475413084, -0.006322409026324749, -0.005262230988591909, -0.00430551590397954, -0.0034687770530581474, -0.002765862736850977, -0.0022076936438679695, -0.0018020645948126912, -0.0015535193961113691, -0.0014632951933890581]</value>
     </param>
     <param>
       <key>type</key>
@@ -980,7 +951,9 @@ Attn 10dB</value>
     </param>
     <param>
       <key>comment</key>
-      <value>LPF for subtracting end of band</value>
+      <value>LPF for subtracting side 10MHz band
+Start 4.8e6, Stop 5e6, Attn 8db
+Number of taps: 20</value>
     </param>
     <param>
       <key>affinity</key>
@@ -992,11 +965,11 @@ Attn 10dB</value>
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(296, 139)</value>
+      <value>(304, 83)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1004,7 +977,7 @@ Attn 10dB</value>
     </param>
     <param>
       <key>id</key>
-      <value>fft_filter_xxx_1</value>
+      <value>fft_filter_xxx_1_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -1024,7 +997,68 @@ Attn 10dB</value>
     </param>
     <param>
       <key>taps</key>
-      <value>[0.07469794899225235, 1.8506040573120117, 0.07469794899225235]</value>
+      <value>[-9.537214351595935e-10, -0.000768458703532815, 0.0035646669566631317, -0.009442212991416454, 0.019308455288410187, -0.03309587016701698, 0.049214430153369904, -0.06466702371835709, 0.07588998228311539, 1.9199920892715454, 0.07588998228311539, -0.06466703116893768, 0.049214426428079605, -0.03309587016701698, 0.019308457151055336, -0.009442214854061604, 0.0035646690521389246, -0.0007684589363634586, -9.537214351595935e-10]</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>ccc</value>
+    </param>
+  </block>
+  <block>
+    <key>fft_filter_xxx</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value>LPF for subtracting side 10MHz band
+Start 4.8e6, Stop 5e6, Attn 8db
+Number of taps: 20</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>decim</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(504, 211)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>fft_filter_xxx_1_0_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>nthreads</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>samp_delay</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>taps</key>
+      <value>[-0.0, -3.605747770052403e-05, -0.00015325035201385617, -0.00036445073783397675, -0.0006814244552515447, -0.0011145577300339937, -0.0016726029571145773, -0.0023624503519386053, -0.0031889283563941717, -0.004154636990278959, -0.005259823519736528, -0.006502292584627867, -0.00787736289203167, -0.009377875365316868, -0.010994228534400463, -0.01271448191255331, -0.014524486847221851, -0.01640806719660759, -0.01834724098443985, -0.020322468131780624, -0.022312942892313004, -0.02429690770804882, -0.026251977309584618, -0.02815551497042179, -0.029984958469867706, -0.03171820938587189, -0.033333972096443176, -0.03481213003396988, -0.036134038120508194, -0.03728286176919937, -0.0382438525557518, -0.03900458663702011, -0.039555177092552185, -0.03988843783736229, 1.9600005149841309, -0.03988843783736229, -0.039555177092552185, -0.03900458663702011, -0.0382438525557518, -0.03728286176919937, -0.036134038120508194, -0.03481213003396988, -0.033333972096443176, -0.03171820938587189, -0.029984958469867706, -0.02815551497042179, -0.026251977309584618, -0.02429690770804882, -0.022312942892313004, -0.020322468131780624, -0.01834724098443985, -0.01640806719660759, -0.014524486847221851, -0.01271448191255331, -0.010994228534400463, -0.009377875365316868, -0.00787736289203167, -0.006502292584627867, -0.005259823519736528, -0.004154636990278959, -0.0031889283563941717, -0.0023624503519386053, -0.0016726029571145773, -0.0011145577300339937, -0.0006814244552515447, -0.00036445073783397675, -0.00015325035201385617, -3.605747770052403e-05, -0.0]</value>
     </param>
     <param>
       <key>type</key>
@@ -1145,7 +1179,7 @@ Attn 10dB</value>
     </param>
     <param>
       <key>bw0</key>
-      <value>15e6</value>
+      <value>0</value>
     </param>
     <param>
       <key>dc_offset_mode0</key>
@@ -1165,7 +1199,7 @@ Attn 10dB</value>
     </param>
     <param>
       <key>if_gain0</key>
-      <value>10</value>
+      <value>8</value>
     </param>
     <param>
       <key>iq_balance_mode0</key>
@@ -1173,7 +1207,7 @@ Attn 10dB</value>
     </param>
     <param>
       <key>gain0</key>
-      <value>10</value>
+      <value>40</value>
     </param>
     <param>
       <key>ant10</key>
@@ -2712,7 +2746,25 @@ Attn 10dB</value>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>fft_filter_xxx_1</source_block_id>
+    <source_block_id>fft_filter_xxx_1_0</source_block_id>
+    <sink_block_id>fft_filter_xxx_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fft_filter_xxx_1_0</source_block_id>
+    <sink_block_id>fft_filter_xxx_1_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fft_filter_xxx_1_0_0</source_block_id>
+    <sink_block_id>blocks_add_xx_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fft_filter_xxx_1_0_0</source_block_id>
     <sink_block_id>fft_filter_xxx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
@@ -2725,7 +2777,7 @@ Attn 10dB</value>
   </connection>
   <connection>
     <source_block_id>osmosdr_source_0</source_block_id>
-    <sink_block_id>fft_filter_xxx_1</sink_block_id>
+    <sink_block_id>fft_filter_xxx_1_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
