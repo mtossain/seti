@@ -70,6 +70,65 @@
     </param>
   </block>
   <block>
+    <key>variable_slider</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>converver</key>
+      <value>float_converter</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>10</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(936, 355)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>grid_pos</key>
+      <value></value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>bbgain</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value></value>
+    </param>
+    <param>
+      <key>max</key>
+      <value>40</value>
+    </param>
+    <param>
+      <key>min</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>notebook</key>
+      <value></value>
+    </param>
+    <param>
+      <key>num_steps</key>
+      <value>100</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>wx.SL_HORIZONTAL</value>
+    </param>
+  </block>
+  <block>
     <key>variable</key>
     <param>
       <key>comment</key>
@@ -124,6 +183,65 @@
     </param>
   </block>
   <block>
+    <key>variable_slider</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>converver</key>
+      <value>float_converter</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>1420e6</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(936, 11)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>grid_pos</key>
+      <value></value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>freq</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value></value>
+    </param>
+    <param>
+      <key>max</key>
+      <value>1440e6</value>
+    </param>
+    <param>
+      <key>min</key>
+      <value>1400e6</value>
+    </param>
+    <param>
+      <key>notebook</key>
+      <value></value>
+    </param>
+    <param>
+      <key>num_steps</key>
+      <value>100</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>wx.SL_HORIZONTAL</value>
+    </param>
+  </block>
+  <block>
     <key>variable</key>
     <param>
       <key>comment</key>
@@ -135,7 +253,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(688, 11)</value>
+      <value>(288, 128)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -143,11 +261,70 @@
     </param>
     <param>
       <key>id</key>
-      <value>freq</value>
+      <value>freq_0</value>
     </param>
     <param>
       <key>value</key>
       <value>1420e6</value>
+    </param>
+  </block>
+  <block>
+    <key>variable_slider</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>converver</key>
+      <value>float_converter</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>8</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(936, 243)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>grid_pos</key>
+      <value></value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>ifgain</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value></value>
+    </param>
+    <param>
+      <key>max</key>
+      <value>40</value>
+    </param>
+    <param>
+      <key>min</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>notebook</key>
+      <value></value>
+    </param>
+    <param>
+      <key>num_steps</key>
+      <value>100</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>wx.SL_HORIZONTAL</value>
     </param>
   </block>
   <block>
@@ -178,6 +355,65 @@
     </param>
   </block>
   <block>
+    <key>variable_slider</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>converver</key>
+      <value>float_converter</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>10</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(936, 131)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>grid_pos</key>
+      <value></value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>rfgain</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value></value>
+    </param>
+    <param>
+      <key>max</key>
+      <value>40</value>
+    </param>
+    <param>
+      <key>min</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>notebook</key>
+      <value></value>
+    </param>
+    <param>
+      <key>num_steps</key>
+      <value>100</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>wx.SL_HORIZONTAL</value>
+    </param>
+  </block>
+  <block>
     <key>variable</key>
     <param>
       <key>comment</key>
@@ -201,7 +437,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>10e6</value>
+      <value>2.5e6</value>
     </param>
   </block>
   <block>
@@ -228,7 +464,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>2</value>
     </param>
     <param>
       <key>type</key>
@@ -236,7 +472,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(504, 235)</value>
+      <value>(480, 219)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1916,7 +2152,7 @@
     </param>
     <param>
       <key>bb_gain0</key>
-      <value>10</value>
+      <value>bbgain</value>
     </param>
     <param>
       <key>bw0</key>
@@ -1936,11 +2172,11 @@
     </param>
     <param>
       <key>gain_mode0</key>
-      <value>True</value>
+      <value>False</value>
     </param>
     <param>
       <key>if_gain0</key>
-      <value>10</value>
+      <value>ifgain</value>
     </param>
     <param>
       <key>iq_balance_mode0</key>
@@ -1948,7 +2184,7 @@
     </param>
     <param>
       <key>gain0</key>
-      <value>10</value>
+      <value>rfgain</value>
     </param>
     <param>
       <key>ant10</key>
@@ -3315,11 +3551,11 @@
     <key>wxgui_fftsink2</key>
     <param>
       <key>avg_alpha</key>
-      <value>0</value>
+      <value>0.00001</value>
     </param>
     <param>
       <key>average</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>baseband_freq</key>
@@ -3351,7 +3587,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(504, 344)</value>
+      <value>(504, 411)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -3418,11 +3654,11 @@
     <key>wxgui_waterfallsink2</key>
     <param>
       <key>avg_alpha</key>
-      <value>0</value>
+      <value>0.001</value>
     </param>
     <param>
       <key>average</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>baseband_freq</key>
@@ -3446,7 +3682,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>0</value>
     </param>
     <param>
       <key>fft_rate</key>
