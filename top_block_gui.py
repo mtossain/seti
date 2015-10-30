@@ -1,31 +1,46 @@
 #!/usr/bin/env python2
 ##################################################
 # GNU Radio Python Flow Graph
-# Title: Top Block
-# Generated: Wed Oct 21 20:27:47 2015
+# Title: Top Block Gui
+# Generated: Tue Oct 27 20:59:48 2015
 ##################################################
+
+if __name__ == '__main__':
+    import ctypes
+    import sys
+    if sys.platform.startswith('linux'):
+        try:
+            x11 = ctypes.cdll.LoadLibrary('libX11.so')
+            x11.XInitThreads()
+        except:
+            print "Warning: failed to XInitThreads()"
 
 from datetime import datetime
 from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import filter
 from gnuradio import gr
+from gnuradio import wxgui
 from gnuradio.eng_option import eng_option
 from gnuradio.fft import logpwrfft
+from gnuradio.fft import window
 from gnuradio.filter import firdes
+from gnuradio.wxgui import fftsink2
 from grc_gnuradio import blks2 as grc_blks2
+from grc_gnuradio import wxgui as grc_wxgui
 from optparse import OptionParser
 import osmosdr
 import threading
 import time
-import glob
-import os
-import mysql.connector
+import wx
 
-class top_block(gr.top_block):
+
+class top_block_gui(grc_wxgui.top_block_gui):
 
     def __init__(self):
-        gr.top_block.__init__(self, "Top Block")
+        grc_wxgui.top_block_gui.__init__(self, title="Top Block Gui")
+        _icon_path = "/usr/share/icons/hicolor/32x32/apps/gnuradio-grc.png"
+        self.SetIcon(wx.Icon(_icon_path, wx.BITMAP_TYPE_ANY))
 
         ##################################################
         # Variables
@@ -40,7 +55,7 @@ class top_block(gr.top_block):
         ##################################################
         # Blocks
         ##################################################
-        self.blocks_threshold_ff_0 = blocks.threshold_ff(-1000, -80, 0)
+        self.blocks_threshold_ff_0 = blocks.threshold_ff(-1000, 0, 0)
         def _record_probe():
             while True:
                 val = self.blocks_threshold_ff_0.last_state()
@@ -52,6 +67,22 @@ class top_block(gr.top_block):
         _record_thread = threading.Thread(target=_record_probe)
         _record_thread.daemon = True
         _record_thread.start()
+        self.wxgui_fftsink2_0 = fftsink2.fft_sink_c(
+        	self.GetWin(),
+        	baseband_freq=0,
+        	y_per_div=10,
+        	y_divs=10,
+        	ref_level=0,
+        	ref_scale=2.0,
+        	sample_rate=samp_rate,
+        	fft_size=1024,
+        	fft_rate=15,
+        	average=False,
+        	avg_alpha=None,
+        	title="FFT Plot",
+        	peak_hold=False,
+        )
+        self.Add(self.wxgui_fftsink2_0.win)
         self.osmosdr_source_0 = osmosdr.source( args="numchan=" + str(1) + " " + "" )
         self.osmosdr_source_0.set_sample_rate(samp_rate)
         self.osmosdr_source_0.set_center_freq(1420e6, 0)
@@ -59,7 +90,7 @@ class top_block(gr.top_block):
         self.osmosdr_source_0.set_dc_offset_mode(2, 0)
         self.osmosdr_source_0.set_iq_balance_mode(2, 0)
         self.osmosdr_source_0.set_gain_mode(True, 0)
-        self.osmosdr_source_0.set_gain(40, 0)
+        self.osmosdr_source_0.set_gain(15, 0)
         self.osmosdr_source_0.set_if_gain(8, 0)
         self.osmosdr_source_0.set_bb_gain(10, 0)
         self.osmosdr_source_0.set_antenna("", 0)
@@ -101,6 +132,7 @@ class top_block(gr.top_block):
         self.connect((self.fft_filter_xxx_1_0, 0), (self.fft_filter_xxx_1_0_0, 0))    
         self.connect((self.fft_filter_xxx_1_0_0, 0), (self.blks2_valve_0, 0))    
         self.connect((self.fft_filter_xxx_1_0_0, 0), (self.logpwrfft_x_0, 0))    
+        self.connect((self.fft_filter_xxx_1_0_0, 0), (self.wxgui_fftsink2_0, 0))    
         self.connect((self.logpwrfft_x_0, 0), (self.blocks_vector_to_stream_0, 0))    
         self.connect((self.osmosdr_source_0, 0), (self.fft_filter_xxx_1_0, 0))    
 
@@ -120,6 +152,7 @@ class top_block(gr.top_block):
         self.samp_rate = samp_rate
         self.logpwrfft_x_0.set_sample_rate(self.samp_rate)
         self.osmosdr_source_0.set_sample_rate(self.samp_rate)
+        self.wxgui_fftsink2_0.set_sample_rate(self.samp_rate)
 
     def get_record(self):
         return self.record
@@ -151,64 +184,10 @@ class top_block(gr.top_block):
         self.datafile = datafile
         self.blocks_file_sink_0.open(self.datafile)
 
-def UpdateDatabase(nowdir,DataDir):
 
-    # Get time sorted list of available files in current day
-    DirToSearch = DataDir + nowdir + '/data*'
-    files = glob.glob(DirToSearch)   
-    files.sort(key=os.path.getmtime)
-    if os.path.getsize(files[len(files)-1])>0: # Test if there was something in the last recorded data file  
-        try:
-	    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            cnx = mysql.connector.connect(host="panyagua.nl", # your host, usually localhost
-	        port=3306, # port name
-	        user="seti", # your username
-	        passwd="seti1", # your password
-	        database="seti") # name of the data base
-	    cursor = cnx.cursor()
-	    cursor.execute("INSERT INTO seti (DateTimeInsert, DishLocation, DataFileName) " +
-		                  "VALUES ('" + now + "','" + 'Ijsselstein' + "','" + os.path.abspath(files[len(files)-1]) + "')")
-	    cnx.commit()
-	    cursor.close()
-	    cnx.close()
-	    print('Data uploaded to database [OK]')
-	except mysql.connector.Error as err:
-	    print("Could not connect to database [NOK]")
-    return
-    
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
     (options, args) = parser.parse_args()
-    tb = top_block()
-    
-    ########################################################################################
- 
-    UpdateRate = 5*60 # In seconds
-    DataDir = '/media/michel/SETI/'
-    # Repeat forever
-    while True:
-
-        # start and wait untill next period
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        nowdir = datetime.now().strftime("%Y/%Y%m%d")
-        print(now + ' Started new file')
-        tb.start()
-        while True:
-            NumSeconds = int(time.strftime("%M"))*60+int(time.strftime("%S"))
-            if NumSeconds % UpdateRate ==0:
-                UpdateDatabase(nowdir, DataDir)
-                tb.set_prefix(DataDir + datetime.now().strftime("%Y/%Y%m%d"))
-                time.sleep(1)
-                break
-            time.sleep(1)
-        tb.stop()
-        tb.wait()
-
-    ########################################################################################
-    
-    try:
-        raw_input('Press Enter to quit: ')
-    except EOFError:
-        pass
-    tb.stop()
-    tb.wait()
+    tb = top_block_gui()
+    tb.Start(True)
+    tb.Wait()

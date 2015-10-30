@@ -38,11 +38,11 @@
     </param>
     <param>
       <key>generate_options</key>
-      <value>no_gui</value>
+      <value>wx_gui</value>
     </param>
     <param>
       <key>id</key>
-      <value>top_block</value>
+      <value>top_block_gui</value>
     </param>
     <param>
       <key>max_nouts</key>
@@ -634,7 +634,7 @@ is inverted here</value>
     </param>
     <param>
       <key>high</key>
-      <value>-80</value>
+      <value>0</value>
     </param>
     <param>
       <key>id</key>
@@ -972,7 +972,7 @@ Number of taps: 20</value>
     </param>
     <param>
       <key>gain0</key>
-      <value>40</value>
+      <value>15</value>
     </param>
     <param>
       <key>ant10</key>
@@ -2335,6 +2335,109 @@ Number of taps: 20</value>
       <value></value>
     </param>
   </block>
+  <block>
+    <key>wxgui_fftsink2</key>
+    <param>
+      <key>avg_alpha</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>average</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>baseband_freq</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fft_size</key>
+      <value>1024</value>
+    </param>
+    <param>
+      <key>freqvar</key>
+      <value>None</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(96, 323)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>grid_pos</key>
+      <value></value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wxgui_fftsink2_0</value>
+    </param>
+    <param>
+      <key>notebook</key>
+      <value></value>
+    </param>
+    <param>
+      <key>peak_hold</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>ref_level</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>ref_scale</key>
+      <value>2.0</value>
+    </param>
+    <param>
+      <key>fft_rate</key>
+      <value>15</value>
+    </param>
+    <param>
+      <key>samp_rate</key>
+      <value>samp_rate</value>
+    </param>
+    <param>
+      <key>title</key>
+      <value>FFT Plot</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>win_size</key>
+      <value></value>
+    </param>
+    <param>
+      <key>win</key>
+      <value>None</value>
+    </param>
+    <param>
+      <key>y_divs</key>
+      <value>10</value>
+    </param>
+    <param>
+      <key>y_per_div</key>
+      <value>10</value>
+    </param>
+  </block>
   <connection>
     <source_block_id>blks2_valve_0</source_block_id>
     <sink_block_id>blocks_head_0</sink_block_id>
@@ -2392,6 +2495,12 @@ Number of taps: 20</value>
   <connection>
     <source_block_id>fft_filter_xxx_1_0_0</source_block_id>
     <sink_block_id>logpwrfft_x_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fft_filter_xxx_1_0_0</source_block_id>
+    <sink_block_id>wxgui_fftsink2_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>

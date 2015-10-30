@@ -2,16 +2,18 @@
 
 import glob
 import os
+import mysql.connector
 
-def UpdateDatabase(now,DataDir):
+def UpdateDatabase(nowdir,DataDir):
 
 	# Get time sorted list of available files in current day
-	DirToSearch = DataDir + time.strftime("%Y/%Y%m%d") + '/data*'
+	DirToSearch = DataDir + nowdir + '/data*'
 	files = glob.glob(DirToSearch)   
 	files.sort(key=os.path.getmtime)
 
 	if os.path.getsize(files[len(files)-1])>0: # Test if there was something in the last recorded data file  
 	    try:
+	        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 		    cnx = mysql.connector.connect(
 		         host="panyagua.nl", # your host, usually localhost
 		         port=3306, # port name
@@ -38,12 +40,13 @@ def UpdateDatabase(now,DataDir):
 
         # start and wait untill next period
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        nowdir = datetime.now().strftime("%Y/%Y%m%d")
         print(now + ' Started new file')
         tb.start()
         while True:
             NumSeconds = int(time.strftime("%M"))*60+int(time.strftime("%S"))
             if NumSeconds % UpdateRate ==0:
-                UpdateDatabase(now, DataDir)
+                UpdateDatabase(nowdir, DataDir)
                 tb.set_prefix(DataDir + datetime.now().strftime("%Y/%Y%m%d"))
                 time.sleep(1)
                 break
