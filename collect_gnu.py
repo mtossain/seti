@@ -55,7 +55,7 @@ class top_block(gr.top_block):
         	average=True,
         )
         self.blocks_vector_to_stream_0 = blocks.vector_to_stream(gr.sizeof_float*1, fftsize)
-        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_float*1, "/home/michel/sdr/seti2/MYPIPEFFT", True)
+        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_float*1, "MYPIPEFFT", True)
         self.blocks_file_sink_0.set_unbuffered(False)
 
         ##################################################
