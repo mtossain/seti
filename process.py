@@ -7,6 +7,7 @@ import xml.dom.minidom
 import math
 import datetime
 import mysql.connector
+from array import array
 
 ###############################################################################
 # Configuration variables
@@ -15,10 +16,10 @@ Receiver = 'rtlsdr'
 FFTSize=1024 #Number of FFT bins
 fc=1420e6 #Center frequency
 fs=3.2e6 #Sampling rate
-DataDir = '/media/draakje/SETI' # Where to put recorded files
+DataDir = '/media/draakje/SETI/' # Where to put recorded files
 UpdateRateFFTFiles = 15*60 # In seconds
-ThresholdPower = -91 # Threshold for power detection
-NumSamplesRecord = 100e6 # Number of IQ samples to record
+ThresholdPower = -88 # Threshold for power detection
+NumSamplesRecord = 10e6 # Number of IQ samples to record
 
 ###############################################################################
 # Derived parameters from configuration
@@ -45,6 +46,7 @@ def UploadAlarmDB(FileName):
         cnx.close()
         print('Data uploaded to database [OK]')
     except mysql.connector.Error as err:
+        print(err)
         print("Could not connect to database [NOK]")
      
 ###############################################################################
@@ -90,7 +92,6 @@ FileHandleFFTout = open (FileNameOut, "wb")
 while True:   
     
     PowerSpectrum = struct.unpack('f'*FFTSize, FileHandleFFTin.read(4*FFTSize)) # float is 4 bytes
-    FileHandleFFTout.write(PowerSpectrum) # write to fft output file
     
     if (int(time.strftime("%M"))*60+int(time.strftime("%S"))) % UpdateRateFFTFiles ==0:
         FileHandleFFTout.close() # close current file
@@ -103,18 +104,20 @@ while True:
         PowerSpectrum = np.roll(PowerSpectrum, FFTSize/2) # FFTW produces half offset FFT
         for i in range(0,FFTSize):
             PowerSpectrum[i]=PowerSpectrum[i]+PreMask[i] # Take out the premask
-        MaxPower = np.amax(PowerSpectrum)
+        float_array = array('d', PowerSpectrum) # Apparently fastest way to write binary array to file
+        float_array.tofile(FileHandleFFTout) # Write to fft output file
+        MaxPower = np.amax(PowerSpectrum) # Find the strongest signal
         print('Read FFT, average: '+str(MaxPower))
         
-        if MaxPower > ThresholdPower:
-            now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            print(now + ' Signal detected at :'+str(MaxPower))
+        if MaxPower > ThresholdPower: # Signal detected
+            
+            print(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ' Signal detected at :'+str(MaxPower))
             p.kill()
             FileNameRecord = DataDir + 'SigDet_'+ datetime.now().strftime("%Y%m%d_%H%M%S"+'.bin')
             if Receiver=='rtlsdr':
-                os.system('rtl_sdr '+FileNameRecord+' -n 100e6 -f '+str(fc)+' -s '+str(fs))
+                os.system('rtl_sdr '+FileNameRecord+' -n '+str(NumSamplesRecord)+' -f '+str(fc)+' -s '+str(fs))
             if Receiver=='airspy':
-                os.system('airspy_rx '+FileNameRecord+' -n 100e6 -f '+str(fc)+' -s '+str(fs))
+                os.system('airspy_rx '+FileNameRecord+' -n '+str(NumSamplesRecord)+' -f '+str(fc)+' -s '+str(fs))
             p = subprocess.Popen('exec python collect_gnu.py', stdout=subprocess.PIPE, shell=True)
             UploadAlarmDB(FileNameRecord)
             time.sleep(1)
