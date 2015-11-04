@@ -9,6 +9,7 @@ import datetime
 from datetime import datetime
 import mysql.connector
 from array import array
+import matplotlib.pyplot as plt
 
 ###############################################################################
 # Configuration variables
@@ -18,9 +19,8 @@ FFTSize=1024 #Number of FFT bins
 fc=1420e6 #Center frequency
 fs=3.2e6 #Sampling rate
 DataDir = '/media/michel/SETI/' # Where to put recorded files
-UpdateRateFFTFiles = 15*60 # In seconds
-ThresholdPower = -100 # Threshold for power detection
-NumSamplesRecord = 10e6 # Number of IQ samples to record
+ThresholdPower = -72 # Threshold for power detection
+NumSamplesRecord = 100e6 # Number of IQ samples to record
 
 ###############################################################################
 # Derived parameters from configuration
@@ -90,15 +90,16 @@ FileHandleFFTin = open ("MYPIPEFFT", "rb") # Open the pipe
 PowerSpectrum = range(0,FFTSize)
 FileNameOut = DataDir+datetime.now().strftime("%Y/%Y%m%d")+'/DataFFT_'+datetime.now().strftime("%Y%m%d_%H%M%S"+'.bin')
 FileHandleFFTout = open (FileNameOut, "w+b")
+LastHour = int(time.strftime("%H"))
 while True:   
     
     PowerSpectrum = struct.unpack('f'*FFTSize, FileHandleFFTin.read(4*FFTSize)) # float is 4 bytes
     
-    if (int(time.strftime("%M"))*60+int(time.strftime("%S"))) % UpdateRateFFTFiles ==0:
+    if int(time.strftime("%H"))<>LastHour:
         FileHandleFFTout.close() # close current file
         FileNameOut = DataDir+datetime.now().strftime("%Y/%Y%m%d")+'/DataFFT_'+datetime.now().strftime("%Y%m%d_%H%M%S"+'.bin')
         FileHandleFFTout = open (FileNameOut, "w+b") # open new file
-        time.sleep(1)
+        LastHour = int(time.strftime("%H"))
             
     if len(PowerSpectrum)>0:
             
@@ -121,7 +122,12 @@ while True:
                 os.system('airspy_rx '+FileNameRecord+' -n '+str(NumSamplesRecord)+' -f '+str(fc)+' -s '+str(fs))
             p = subprocess.Popen('exec python collect_gnu.py', stdout=subprocess.PIPE, shell=True)
             UploadAlarmDB(FileNameRecord)
-            time.sleep(3)
+            time.sleep(10)
+         
+            fig, ax = plt.subplots( nrows=1, ncols=1 )  # create figure & 1 axis
+            ax.plot(PowerSpectrum)
+            fig.savefig('signal.png')   # save the figure to file
+            plt.close(fig)    # close the figure
             
 FileHandleFFTin.close()
 FileHandleFFTout.close()

@@ -51,7 +51,7 @@ class top_block(gr.top_block):
         	fft_size=fftsize,
         	ref_scale=2,
         	frame_rate=0.5,
-        	avg_alpha=0.0001,
+        	avg_alpha=0.01,
         	average=True,
         )
         self.blocks_vector_to_stream_0 = blocks.vector_to_stream(gr.sizeof_float*1, fftsize)
