@@ -66,9 +66,9 @@ MaskStart=[]
 MaskStop=[]
 for Mask in Masks: 
    StartFreqMHz = Mask.getElementsByTagName('StartFreqMHz')[0]
-   print ("StartFreqMHz: %s" % StartFreqMHz.childNodes[0].data)
+   print ("Mask StartFreqMHz: %s" % StartFreqMHz.childNodes[0].data)
    StopFreqMHz = Mask.getElementsByTagName('StopFreqMHz')[0]
-   print ("StopFreqMHz: %s" % StopFreqMHz.childNodes[0].data)
+   print ("Mask StopFreqMHz: %s" % StopFreqMHz.childNodes[0].data)
    MaskStart.append(float(StartFreqMHz.childNodes[0].data))
    MaskStop.append(float(StopFreqMHz.childNodes[0].data))
 
