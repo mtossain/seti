@@ -21,6 +21,11 @@ fs=3.2e6 #Sampling rate
 DataDir = '/media/michel/SETI/' # Where to put recorded files
 ThresholdPower = -72 # Threshold for power detection
 NumSamplesRecord = 100e6 # Number of IQ samples to record
+Gain = 40 # LNA Gain in receiver
+IFGain = 10 # IF Gain in receiver
+BBGain = 10 # BB Gain in receiver
+FFTFrameRate = 0.5 # How many FFT per second
+FFTAverageAlpha = 0.01 # Averaging factor, smaller is more averaging
 
 ###############################################################################
 # Derived parameters from configuration
@@ -76,15 +81,22 @@ def GetFreqMask(FileNameMask):
 
 ###############################################################################
 
-def UpdateCollectGnuradio(FileNameGnuradio):
+def UpdateCollectGnuradio(FileNameGnuradioIn, FileNameGnuradioOut):
     
-    f = open(FileNameGnuradio,'r')
+    f = open(FileNameGnuradioIn,'r')
     filedata = f.read()
     f.close()
 
-    newdata = filedata.replace("old data","new data")
-
-    f = open(FileNameGnuradio,'w')
+    newdata = filedata.replace('<SampleRate>',str(fs))
+    newdata = filedata.replace('<FFTSize>',str(FFTSize))
+    newdata = filedata.replace('<CenterFrequency>',str(fc))
+    newdata = filedata.replace('<Gain>',str(Gain))
+    newdata = filedata.replace('<IFGain>',str(IFGain))
+    newdata = filedata.replace('<BBGain>',str(BBGain))
+    newdata = filedata.replace('<FFTFrameRate>',str(FFTFrameRate))
+    newdata = filedata.replace('<FFTAverageAlpha>',str(FFTAverageAlpha))
+    
+    f = open(FileNameGnuradioOut,'w')
     f.write(newdata)
     f.close()    
 
@@ -92,7 +104,8 @@ def UpdateCollectGnuradio(FileNameGnuradio):
 
 # Main
 
-MaskOut = GetFreqMask('mask.xml')
+MaskOut = GetFreqMask('mask.xml') # Get the frequency masking file to be applied
+UpdateCollectGnuradio('collect_gnu_template.py','collect_gnu.py') # Apply configuration settings to gnuradio top_block
 
 os.system('mknod MYPIPEFFT p') # Make a named pipe on Linux
 p = subprocess.Popen('exec python collect_gnu.py', stdout=subprocess.PIPE, shell=True) # Start recording with gnuradio top_block.py
