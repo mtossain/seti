@@ -87,17 +87,17 @@ def UpdateCollectGnuradio(FileNameGnuradioIn, FileNameGnuradioOut):
     filedata = f.read()
     f.close()
 
-    newdata = filedata.replace('<SampleRate>',str(fs))
-    newdata = filedata.replace('<FFTSize>',str(FFTSize))
-    newdata = filedata.replace('<CenterFrequency>',str(fc))
-    newdata = filedata.replace('<Gain>',str(Gain))
-    newdata = filedata.replace('<IFGain>',str(IFGain))
-    newdata = filedata.replace('<BBGain>',str(BBGain))
-    newdata = filedata.replace('<FFTFrameRate>',str(FFTFrameRate))
-    newdata = filedata.replace('<FFTAverageAlpha>',str(FFTAverageAlpha))
+    filedata = filedata.replace('<SampleRate>',str(int(fs)))
+    filedata = filedata.replace('<FFTSize>',str(int(FFTSize)))
+    filedata = filedata.replace('<CenterFrequency>',str(int(fc)))
+    filedata = filedata.replace('<Gain>',str(Gain))
+    filedata = filedata.replace('<IFGain>',str(IFGain))
+    filedata = filedata.replace('<BBGain>',str(BBGain))
+    filedata = filedata.replace('<FFTFrameRate>',str(FFTFrameRate))
+    filedata = filedata.replace('<FFTAverageAlpha>',str(FFTAverageAlpha))
     
     f = open(FileNameGnuradioOut,'w')
-    f.write(newdata)
+    f.write(filedata)
     f.close()    
 
 ###############################################################################
