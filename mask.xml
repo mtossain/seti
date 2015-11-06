@@ -2,5 +2,6 @@
   <MaskEntry>
     <StartFreqMHz>1419.97</StartFreqMHz>
     <StopFreqMHz>1420.03</StopFreqMHz>
+    <Offset>-10</Offset>
   </MaskEntry>
 </Mask>

@@ -49,39 +49,50 @@ def UploadAlarmDB(FileName):
     except mysql.connector.Error as err:
         print(err)
         print("Could not connect to database [NOK]")
-     
-                
+                   
 ###############################################################################
-# Main
+
+def GetFreqMask(FileNameMask):
     
-# Open XML document using minidom parser
-DOMTree = xml.dom.minidom.parse("mask.xml")
-collection = DOMTree.documentElement
-if collection.hasAttribute("Mask"):
-   print ("Root element : %s" % collection.getAttribute("Mask"))
+    MaskOut = [0]*FFTSize # Output list
+    
+    # Get all masks from XML file
+    Masks = xml.dom.minidom.parse(FileNameMask).documentElement.getElementsByTagName("MaskEntry")
+       
+    # Loop over the masks
+    for Mask in Masks:
+        
+        StartFreqMHz = float(Mask.getElementsByTagName('StartFreqMHz')[0].childNodes[0].data)
+        StopFreqMHz = float(Mask.getElementsByTagName('StopFreqMHz')[0].childNodes[0].data)
+        Offset = float(Mask.getElementsByTagName('Offset')[0].childNodes[0].data)
+        
+        # Convert from Mask cell to FFT bin array
+        for j in range(0,FFTSize):
+            FrequencyMHz = round(StartFreq + j * RBW) / 1e6 # in MHz
+            if (FrequencyMHz > StartFreqMHz) and (FrequencyMHz < StopFreqMHz):
+                MaskOut[j]=Offset
 
-# Get all the masks in the collection
-Masks = collection.getElementsByTagName("MaskEntry")
-MaskStart=[]
-MaskStop=[]
-for Mask in Masks: 
-   StartFreqMHz = Mask.getElementsByTagName('StartFreqMHz')[0]
-   print ("Mask StartFreqMHz: %s" % StartFreqMHz.childNodes[0].data)
-   StopFreqMHz = Mask.getElementsByTagName('StopFreqMHz')[0]
-   print ("Mask StopFreqMHz: %s" % StopFreqMHz.childNodes[0].data)
-   MaskStart.append(float(StartFreqMHz.childNodes[0].data))
-   MaskStop.append(float(StopFreqMHz.childNodes[0].data))
+    return MaskOut
 
-# Convert from Mask array to FFT bin array
-MaskOut=[]
-for i in range(0,FFTSize):
-	Frequency = round(StartFreq + i * RBW) / 1e6
-	for j in range (0,len(MaskStart)):
-		if (Frequency > MaskStart[j]) and (Frequency < MaskStop[j]):
-			MaskOut.append(-10) # Offset value to apply
-		else:
-			MaskOut.append(0)
+###############################################################################
 
+def UpdateCollectGnuradio(FileNameGnuradio):
+    
+    f = open(FileNameGnuradio,'r')
+    filedata = f.read()
+    f.close()
+
+    newdata = filedata.replace("old data","new data")
+
+    f = open(FileNameGnuradio,'w')
+    f.write(newdata)
+    f.close()    
+
+###############################################################################
+
+# Main
+
+MaskOut = GetFreqMask('mask.xml')
 
 os.system('mknod MYPIPEFFT p') # Make a named pipe on Linux
 p = subprocess.Popen('exec python collect_gnu.py', stdout=subprocess.PIPE, shell=True) # Start recording with gnuradio top_block.py
