@@ -39,20 +39,20 @@ if StopRowAvg > NumRowsInFile:
 print('Reading file: '+DataFile)
 print('Number of rows in file: '+str(NumRowsInFile))
 data = data.reshape(NumRowsInFile,FFTSize)
-
+data = data[list(range(StartRowAvg,StopRowAvg)),:]
+NumRowsPlot = StopRowAvg - StartRowAvg
 fig, ax = plt.subplots(1,1,figsize=(1600/my_dpi, 900/my_dpi), dpi=my_dpi)
 heatmap = ax.pcolor(data, cmap=plt.cm.jet)
 cbar = plt.colorbar(heatmap) # Colorbar title
 cbar.set_label('Power level (dB)', rotation=270) # Colorbar
 x1,x2,y1,y2 = plt.axis() # Change limits
-plt.axis((x1,FFTSize,y1,NumRowsInFile)) # Change limits
+plt.axis((x1,FFTSize,y1,NumRowsPlot)) # Change limits
 plt.xlabel('FFTbins (-) '+str(StartFreq)+' - '+ str(StopFreq))
 fig.savefig('data_heatmap.jpg')
 
 # Plot average of x rows
 fig = plt.figure(figsize=(1275/my_dpi, 900/my_dpi), dpi=my_dpi)
-cut = data[list(range(StartRowAvg,StopRowAvg)),:]
-meandata = np.mean(cut, axis=0)
+meandata = np.mean(data, axis=0)
 dum = range(0,FFTSize)
 x = [(x*RBW+StartFreq*1e6)/1e6 for x in dum]
 plt.plot(x,meandata)
