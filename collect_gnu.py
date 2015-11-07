@@ -27,7 +27,7 @@ class top_block(gr.top_block):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 3200000.0
+        self.samp_rate = samp_rate = 3200000
         self.fftsize = fftsize = 1024
 
         ##################################################
@@ -35,7 +35,7 @@ class top_block(gr.top_block):
         ##################################################
         self.osmosdr_source_0 = osmosdr.source( args="numchan=" + str(1) + " " + "" )
         self.osmosdr_source_0.set_sample_rate(samp_rate)
-        self.osmosdr_source_0.set_center_freq(1420000000.0, 0)
+        self.osmosdr_source_0.set_center_freq(1420000000, 0)
         self.osmosdr_source_0.set_freq_corr(0, 0)
         self.osmosdr_source_0.set_dc_offset_mode(0, 0)
         self.osmosdr_source_0.set_iq_balance_mode(0, 0)
