@@ -27,8 +27,8 @@ class top_block(gr.top_block):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 3200000
-        self.fftsize = fftsize = 1024
+        self.samp_rate = samp_rate = 2400000
+        self.fftsize = fftsize = 2048
 
         ##################################################
         # Blocks

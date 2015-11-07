@@ -36,8 +36,7 @@ for i in range(0,FFTSize):
     x[i] = round(StartFreq*1e6 + i * RBW)/1e6 # in MHz
 os.system('tail -c '+str(FFTSize*4*2)+' '+DataFile+ ' > datatail.bin')
 y = np.fromfile('datatail.bin', dtype=float)
-if len(x)==len(y):
-    li, = ax.plot(x, y)
+li, = ax.plot(x, y)
 
 # draw and show it
 fig.canvas.draw()
@@ -53,12 +52,11 @@ while True:
         os.system('tail -c '+str(FFTSize*4*2)+' '+DataFile+ ' > datatail.bin')
         y = np.fromfile('datatail.bin', dtype=float)
 
-        # set the new data
-        if len(x)==len(y):
-            li.set_ydata(y)
-            ax.relim()
-            ax.autoscale_view(True,True,True)
-            fig.canvas.draw()
+        # set the new data        
+        li.set_ydata(y)
+        ax.relim()
+        ax.autoscale_view(True,True,True)
+        fig.canvas.draw()
         
         time.sleep(0.5)
     except KeyboardInterrupt:

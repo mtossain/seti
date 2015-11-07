@@ -46,7 +46,7 @@ class RunCmd(threading.Thread):
 
     def run(self):
         self.p = sub.Popen(self.cmd)
-        #self.p.wait()
+        self.p.wait()
 
     def Run(self):
         self.start()
