@@ -144,8 +144,9 @@ while True:
     
     PowerSpectrum = struct.unpack('f'*FFTSize, FileHandleFFTin.read(4*FFTSize)) # float is 4 bytes
     
-    if int(time.strftime("%H"))<>LastHour:
+    if int(time.strftime("%H"))<>LastHour: # Make a new file every hour
         FileHandleFFTout.close() # close current file
+        os.sys('mkdir '+ DataDir+datetime.now().strftime("%Y/%Y%m%d")) # make directory if does not exist
         FileNameOut = DataDir+datetime.now().strftime("%Y/%Y%m%d")+'/DataFFT_'+datetime.now().strftime("%Y%m%d_%H%M%S"+'.bin')
         FileHandleFFTout = open (FileNameOut, "w+b") # open new file
         LastHour = int(time.strftime("%H"))
@@ -164,11 +165,10 @@ while True:
             
             print(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ' Signal detected at :'+str(MaxPower))
             p.kill()
+            os.sys('mkdir '+ DataDir+datetime.now().strftime("%Y/%Y%m%d")) # make directory if does not exist
             FileNameRecord = DataDir +datetime.now().strftime("%Y/%Y%m%d")+ '/SigDet_'+ datetime.now().strftime("%Y%m%d_%H%M%S"+'.bin')
             if Receiver=='rtlsdr':
                 os.system('rtl_sdr '+FileNameRecord+' -n '+str(NumSamplesRecord)+' -f '+str(fc)+' -s '+str(fs))
-            if Receiver=='airspy':
-                os.system('airspy_rx '+FileNameRecord+' -n '+str(NumSamplesRecord)+' -f '+str(fc)+' -s '+str(fs))
             p = subprocess.Popen('exec python collect_gnu.py', stdout=subprocess.PIPE, shell=True)
             UploadAlarmDB(FileNameRecord)
             time.sleep(10)
