@@ -5,16 +5,24 @@ import sys
 import os
 import datetime
 from datetime import datetime
+from scipy.signal import savgol_filter
 
 ###############################################################################
 # Configuration variables
-FFTSize=2028 #Number of FFT bins
-fc=1420e6 #Center frequency
-fs=2.4e6 #Sampling rate
+
+fc=int(float(sys.argv[1])) # Center frequency
+fs=int(float(sys.argv[2])) # Sampling rate
+FFTSize = int(float(sys.argv[3])) #Number of FFT bins
+DataDir = sys.argv[4] # Where to look for files
+print(fc)
+print(fs)
+print(FFTSize)
+print(DataDir)
+
 RBW = fs / FFTSize # Resolution bandwidth
 StartFreq = (fc - FFTSize / 2 * RBW)/1e6 # Start frequency FFT
 StopFreq = (fc + FFTSize / 2 * RBW)/1e6 # Start frequency FFT
-DataDir = '/media/michel/SETI/'
+
 ###############################################################################
 # Functions
 def sorted_ls(path):
@@ -38,6 +46,8 @@ os.system('tail -c '+str(FFTSize*4*2)+' '+DataFile+ ' > datatail.bin')
 y = np.fromfile('datatail.bin', dtype=float)
 if len(x)==len(y):
     li, = ax.plot(x, y)
+    #fil = savgol_filter(y,21,4)
+    #li2, = ax.plot(x, fil,"red")
 
 # draw and show it
 fig.canvas.draw()
@@ -56,6 +66,8 @@ while True:
         # set the new data
         if len(x)==len(y):
             li.set_ydata(y)
+            #fil = savgol_filter(y,21,4)
+            #li2.set_ydata(fil)
             ax.relim()
             ax.autoscale_view(True,True,True)
             fig.canvas.draw()

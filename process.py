@@ -11,24 +11,22 @@ import mysql.connector
 from array import array
 import matplotlib.pyplot as plt
 
+
 ###############################################################################
 # Configuration variables
 
-Receiver = 'rtlsdr'
-FFTSize=2048 #Number of FFT bins
 fc=1420e6 #Center frequency
-fs=2.4e6 #Sampling rate
+fs=3.2e6 #Sampling rate
+FFTSize=1024 #Number of FFT bins
 DataDir = '/media/michel/SETI/' # Where to put recorded files
-ThresholdPower = -72 # Threshold for power detection
+ThresholdPower = -50 # Threshold for power detection
+Receiver = 'rtlsdr'
 NumSamplesRecord = 100e6 # Number of IQ samples to record
 Gain = 40 # LNA Gain in receiver
 IFGain = 10 # IF Gain in receiver
 BBGain = 10 # BB Gain in receiver
 FFTFrameRate = 0.5 # How many FFT per second
 FFTAverageAlpha = 0.01 # Averaging factor, smaller is more averaging
-
-###############################################################################
-# Derived parameters from configuration
 
 RBW = fs / FFTSize # Resolution bandwidth
 StartFreq = fc - FFTSize / 2 * RBW # Start frequency FFT
@@ -127,9 +125,11 @@ def UpdateCollectGnuradio(FileNameGnuradioIn, FileNameGnuradioOut):
 
 # Main
 
-RunCmd(["python", "plotfft.py"], 10).run()
+#RunCmd(["python", "plotfft.py "+str(fc)+" "+str(fs)+" "+str(FFTSize)+" "+DataDir], 10).run()
+RunCmd(["python", "plotfft.py",str(fc),str(fs),str(FFTSize),DataDir], 10).run()
 
 MaskOut = GetFreqMask('mask.xml') # Get the frequency masking file to be applied
+print(MaskOut)
 UpdateCollectGnuradio('collect_gnu_template.py','collect_gnu.py') # Apply configuration settings to gnuradio top_block
 
 os.system('mknod MYPIPEFFT p') # Make a named pipe on Linux
