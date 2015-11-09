@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import time
 import struct
 import numpy as np
@@ -22,9 +24,11 @@ DataDir = '/media/michel/SETI/' # Where to put recorded files
 ThresholdPower = -50 # Threshold for power detection
 Receiver = 'rtlsdr'
 NumSamplesRecord = 100e6 # Number of IQ samples to record
-Gain = 40 # LNA Gain in receiver
-IFGain = 10 # IF Gain in receiver
-BBGain = 10 # BB Gain in receiver
+DCOffset = 0 # 0 if not used, 1 manual, 2 if automatic
+UseAGC = True # True if AGC to be used
+Gain = 50 # LNA Gain in receiver
+IFGain = 20 # IF Gain in receiver
+BBGain = 20 # BB Gain in receiver
 FFTFrameRate = 0.5 # How many FFT per second
 FFTAverageAlpha = 0.01 # Averaging factor, smaller is more averaging
 
@@ -111,6 +115,8 @@ def UpdateCollectGnuradio(FileNameGnuradioIn, FileNameGnuradioOut):
     filedata = filedata.replace('<SampleRate>',str(int(fs)))
     filedata = filedata.replace('<FFTSize>',str(int(FFTSize)))
     filedata = filedata.replace('<CenterFrequency>',str(int(fc)))
+    filedata = filedata.replace('<DCOffset>',str(DCOffset))
+    filedata = filedata.replace('<UseAGC>',str(UseAGC))
     filedata = filedata.replace('<Gain>',str(Gain))
     filedata = filedata.replace('<IFGain>',str(IFGain))
     filedata = filedata.replace('<BBGain>',str(BBGain))
@@ -129,7 +135,6 @@ def UpdateCollectGnuradio(FileNameGnuradioIn, FileNameGnuradioOut):
 RunCmd(["python", "plotfft.py",str(fc),str(fs),str(FFTSize),DataDir], 10).run()
 
 MaskOut = GetFreqMask('mask.xml') # Get the frequency masking file to be applied
-print(MaskOut)
 UpdateCollectGnuradio('collect_gnu_template.py','collect_gnu.py') # Apply configuration settings to gnuradio top_block
 
 os.system('mknod MYPIPEFFT p') # Make a named pipe on Linux
@@ -137,6 +142,7 @@ p = subprocess.Popen('exec python collect_gnu.py', stdout=subprocess.PIPE, shell
 FileHandleFFTin = open ("MYPIPEFFT", "rb") # Open the pipe
 
 PowerSpectrum = range(0,FFTSize)
+os.system('mkdir '+ DataDir+datetime.now().strftime("%Y/%Y%m%d")) # make directory if does not exist
 FileNameOut = DataDir+datetime.now().strftime("%Y/%Y%m%d")+'/DataFFT_'+datetime.now().strftime("%Y%m%d_%H%M%S"+'.bin')
 FileHandleFFTout = open (FileNameOut, "w+b")
 LastHour = int(time.strftime("%H"))
@@ -146,7 +152,7 @@ while True:
     
     if int(time.strftime("%H"))<>LastHour: # Make a new file every hour
         FileHandleFFTout.close() # close current file
-        os.sys('mkdir '+ DataDir+datetime.now().strftime("%Y/%Y%m%d")) # make directory if does not exist
+        os.system('mkdir '+ DataDir+datetime.now().strftime("%Y/%Y%m%d")) # make directory if does not exist
         FileNameOut = DataDir+datetime.now().strftime("%Y/%Y%m%d")+'/DataFFT_'+datetime.now().strftime("%Y%m%d_%H%M%S"+'.bin')
         FileHandleFFTout = open (FileNameOut, "w+b") # open new file
         LastHour = int(time.strftime("%H"))
@@ -165,7 +171,7 @@ while True:
             
             print(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ' Signal detected at :'+str(MaxPower))
             p.kill()
-            os.sys('mkdir '+ DataDir+datetime.now().strftime("%Y/%Y%m%d")) # make directory if does not exist
+            os.system('mkdir '+ DataDir+datetime.now().strftime("%Y/%Y%m%d")) # make directory if does not exist
             FileNameRecord = DataDir +datetime.now().strftime("%Y/%Y%m%d")+ '/SigDet_'+ datetime.now().strftime("%Y%m%d_%H%M%S"+'.bin')
             if Receiver=='rtlsdr':
                 os.system('rtl_sdr '+FileNameRecord+' -n '+str(NumSamplesRecord)+' -f '+str(fc)+' -s '+str(fs))

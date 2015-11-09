@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Top Block
-# Generated: Sat Nov  7 23:46:26 2015
+# Generated: Mon Nov  9 20:36:11 2015
 ##################################################
 
 from gnuradio import eng_notation
@@ -12,6 +12,7 @@ from gnuradio.eng_option import eng_option
 from gnuradio.fft import window
 from gnuradio.filter import firdes
 from gnuradio.wxgui import fftsink2
+from gnuradio.wxgui import forms
 from grc_gnuradio import wxgui as grc_wxgui
 from optparse import OptionParser
 import osmosdr
@@ -27,13 +28,36 @@ class top_block(grc_wxgui.top_block_gui):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 2.4e6
+        self.samp_rate = samp_rate = 3.2e6
         self.fc = fc = 1420e6
         self.FFTSize = FFTSize = 2**10
 
         ##################################################
         # Blocks
         ##################################################
+        _fc_sizer = wx.BoxSizer(wx.VERTICAL)
+        self._fc_text_box = forms.text_box(
+        	parent=self.GetWin(),
+        	sizer=_fc_sizer,
+        	value=self.fc,
+        	callback=self.set_fc,
+        	label='fc',
+        	converter=forms.float_converter(),
+        	proportion=0,
+        )
+        self._fc_slider = forms.slider(
+        	parent=self.GetWin(),
+        	sizer=_fc_sizer,
+        	value=self.fc,
+        	callback=self.set_fc,
+        	minimum=1400e6,
+        	maximum=1500e6,
+        	num_steps=100,
+        	style=wx.SL_HORIZONTAL,
+        	cast=float,
+        	proportion=1,
+        )
+        self.Add(_fc_sizer)
         self.wxgui_fftsink2_0 = fftsink2.fft_sink_c(
         	self.GetWin(),
         	baseband_freq=0,
@@ -43,8 +67,8 @@ class top_block(grc_wxgui.top_block_gui):
         	ref_scale=2.0,
         	sample_rate=samp_rate,
         	fft_size=FFTSize,
-        	fft_rate=1,
-        	average=True,
+        	fft_rate=10,
+        	average=False,
         	avg_alpha=0.01,
         	title="FFT Plot",
         	peak_hold=False,
@@ -56,9 +80,9 @@ class top_block(grc_wxgui.top_block_gui):
         self.osmosdr_source_1.set_center_freq(fc, 0)
         self.osmosdr_source_1.set_freq_corr(0, 0)
         self.osmosdr_source_1.set_dc_offset_mode(2, 0)
-        self.osmosdr_source_1.set_iq_balance_mode(2, 0)
+        self.osmosdr_source_1.set_iq_balance_mode(0, 0)
         self.osmosdr_source_1.set_gain_mode(True, 0)
-        self.osmosdr_source_1.set_gain(10, 0)
+        self.osmosdr_source_1.set_gain(50, 0)
         self.osmosdr_source_1.set_if_gain(20, 0)
         self.osmosdr_source_1.set_bb_gain(20, 0)
         self.osmosdr_source_1.set_antenna("", 0)
@@ -77,14 +101,16 @@ class top_block(grc_wxgui.top_block_gui):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.osmosdr_source_1.set_sample_rate(self.samp_rate)
         self.wxgui_fftsink2_0.set_sample_rate(self.samp_rate)
+        self.osmosdr_source_1.set_sample_rate(self.samp_rate)
 
     def get_fc(self):
         return self.fc
 
     def set_fc(self, fc):
         self.fc = fc
+        self._fc_slider.set_value(self.fc)
+        self._fc_text_box.set_value(self.fc)
         self.osmosdr_source_1.set_center_freq(self.fc, 0)
 
     def get_FFTSize(self):
