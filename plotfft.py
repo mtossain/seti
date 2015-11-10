@@ -44,13 +44,8 @@ for i in range(0,FFTSize):
     x[i] = round(StartFreq*1e6 + i * RBW)/1e6 # in MHz
 os.system('tail -c '+str(FFTSize*2)+' '+DataFile+ ' > datatail.bin')
 y = np.fromfile('datatail.bin', dtype=np.float16)
-print(y)
-print(len(x))
-print(len(y))
 if len(x)==len(y):
     li, = ax.plot(x, y)
-    #fil = savgol_filter(y,21,4)
-    #li2, = ax.plot(x, fil,"red")
 
 # draw and show it
 fig.canvas.draw()
@@ -69,8 +64,6 @@ while True:
         # set the new data
         if len(x)==len(y):
             li.set_ydata(y)
-            #fil = savgol_filter(y,21,4)
-            #li2.set_ydata(fil)
             ax.relim()
             ax.autoscale_view(True,True,True)
             fig.canvas.draw()

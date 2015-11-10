@@ -21,7 +21,7 @@ fc=1420e6 #Center frequency
 fs=3.2e6 #Sampling rate
 FFTSize=1024 #Number of FFT bins
 DataDir = '/media/michel/SETI/' # Where to put recorded files
-ThresholdPower = -50 # Threshold for power detection
+ThresholdPower = -10 # Threshold for power detection
 Receiver = 'rtlsdr'
 NumSamplesRecord = 100e6 # Number of IQ samples to record
 DCOffset = 0 # 0 if not used, 1 manual, 2 if automatic
@@ -166,7 +166,7 @@ while True:
         float_array.tofile(FileHandleFFTout) # Write to fft output file
         FileHandleFFTout.flush()
         MaxPower = np.amax(PowerSpectrum) # Find the strongest signal
-        print('Read FFT, average: '+str(MaxPower))
+        print('Read FFT, maximum: '+str(MaxPower))
         
         if MaxPower > ThresholdPower: # Signal detected
             
