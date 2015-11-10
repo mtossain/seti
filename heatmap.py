@@ -33,7 +33,7 @@ StopFreq = (fc + FFTSize / 2 * RBW)/1e6 # Start frequency FFT
 
 # Plot the heatmap
 PowerSpectrum = range(0,FFTSize)
-data = np.fromfile(DataFile, dtype=float)
+data = np.fromfile(DataFile, dtype=np.float16)
 NumRowsInFile = data.size/FFTSize
 if StopRowAvg > NumRowsInFile:
     StopRowAvg=NumRowsInFile

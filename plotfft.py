@@ -42,8 +42,11 @@ DataFile = DataDir+datetime.now().strftime("%Y/%Y%m%d/")+files[-1]
 x=np.zeros(FFTSize)
 for i in range(0,FFTSize):
     x[i] = round(StartFreq*1e6 + i * RBW)/1e6 # in MHz
-os.system('tail -c '+str(FFTSize*4*2)+' '+DataFile+ ' > datatail.bin')
-y = np.fromfile('datatail.bin', dtype=float)
+os.system('tail -c '+str(FFTSize*2)+' '+DataFile+ ' > datatail.bin')
+y = np.fromfile('datatail.bin', dtype=np.float16)
+print(y)
+print(len(x))
+print(len(y))
 if len(x)==len(y):
     li, = ax.plot(x, y)
     #fil = savgol_filter(y,21,4)
@@ -60,8 +63,8 @@ while True:
         files = sorted_ls(DataDir+datetime.now().strftime("%Y/%Y%m%d"))
         DataFile = DataDir+datetime.now().strftime("%Y/%Y%m%d/")+files[-1]
 
-        os.system('tail -c '+str(FFTSize*4*2)+' '+DataFile+ ' > datatail.bin')
-        y = np.fromfile('datatail.bin', dtype=float)
+        os.system('tail -c '+str(FFTSize*2)+' '+DataFile+ ' > datatail.bin')
+        y = np.fromfile('datatail.bin', dtype=np.float16)
 
         # set the new data
         if len(x)==len(y):

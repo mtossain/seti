@@ -162,8 +162,9 @@ while True:
         PowerSpectrum = np.roll(PowerSpectrum, FFTSize/2) # FFTW produces half offset FFT
         for i in range(0,FFTSize):
             PowerSpectrum[i]=PowerSpectrum[i]+MaskOut[i] # Take out the premask
-        float_array = array('d', PowerSpectrum) # Apparently fastest way to write binary array to file
+        float_array = np.array(PowerSpectrum,dtype=np.float16) # Apparently fastest way to write binary array to file
         float_array.tofile(FileHandleFFTout) # Write to fft output file
+        FileHandleFFTout.flush()
         MaxPower = np.amax(PowerSpectrum) # Find the strongest signal
         print('Read FFT, average: '+str(MaxPower))
         
