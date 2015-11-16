@@ -40,9 +40,9 @@ class top_block(gr.top_block):
         self.osmosdr_source_0.set_dc_offset_mode(0, 0)
         self.osmosdr_source_0.set_iq_balance_mode(0, 0)
         self.osmosdr_source_0.set_gain_mode(True, 0)
-        self.osmosdr_source_0.set_gain(50, 0)
-        self.osmosdr_source_0.set_if_gain(20, 0)
-        self.osmosdr_source_0.set_bb_gain(20, 0)
+        self.osmosdr_source_0.set_gain(49.6, 0)
+        self.osmosdr_source_0.set_if_gain(40, 0)
+        self.osmosdr_source_0.set_bb_gain(16, 0)
         self.osmosdr_source_0.set_antenna("", 0)
         self.osmosdr_source_0.set_bandwidth(0, 0)
           
@@ -51,7 +51,7 @@ class top_block(gr.top_block):
         	fft_size=fftsize,
         	ref_scale=2,
         	frame_rate=0.5,
-        	avg_alpha=0.01,
+        	avg_alpha=0.1,
         	average=True,
         )
         self.blocks_vector_to_stream_0 = blocks.vector_to_stream(gr.sizeof_float*1, fftsize)

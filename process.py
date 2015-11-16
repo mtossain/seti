@@ -26,11 +26,11 @@ Receiver = 'rtlsdr'
 NumSamplesRecord = 100e6 # Number of IQ samples to record
 DCOffset = 0 # 0 if not used, 1 manual, 2 if automatic
 UseAGC = True # True if AGC to be used
-Gain = 50 # LNA Gain in receiver
-IFGain = 20 # IF Gain in receiver
-BBGain = 20 # BB Gain in receiver
+Gain = 49.6 # LNA Gain in receiver
+IFGain = 40 # IF Gain in receiver
+BBGain = 16 # BB Gain in receiver
 FFTFrameRate = 0.5 # How many FFT per second
-FFTAverageAlpha = 0.01 # Averaging factor, smaller is more averaging
+FFTAverageAlpha = 0.1 # Averaging factor, smaller is more averaging
 
 RBW = fs / FFTSize # Resolution bandwidth
 StartFreq = fc - FFTSize / 2 * RBW # Start frequency FFT
