@@ -8,6 +8,7 @@ Created on Wed Nov  4 09:37:00 2015
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
+
 ###############################################################################
 # Configuration variables
 
@@ -31,9 +32,10 @@ StopFreq = (fc + FFTSize / 2 * RBW)/1e6 # Start frequency FFT
 
 ###############################################################################
 
-# Plot the heatmap
+# Read the data
 PowerSpectrum = range(0,FFTSize)
 data = np.fromfile(DataFile, dtype=np.float16)
+
 NumRowsInFile = data.size/FFTSize
 if StopRowAvg > NumRowsInFile:
     StopRowAvg=NumRowsInFile
@@ -42,6 +44,8 @@ print('Number of rows in file: '+str(NumRowsInFile))
 data = data.reshape(NumRowsInFile,FFTSize)
 data = data[list(range(StartRowAvg,StopRowAvg)),:]
 NumRowsPlot = StopRowAvg - StartRowAvg
+
+# Plot the heatmap
 fig, ax = plt.subplots(1,1,figsize=(1600/my_dpi, 900/my_dpi), dpi=my_dpi)
 heatmap = ax.pcolor(data, cmap=plt.cm.jet)
 cbar = plt.colorbar(heatmap) # Colorbar title
@@ -53,7 +57,7 @@ fig.savefig('data_heatmap.jpg')
 
 # Plot average of x rows
 fig = plt.figure(figsize=(1275/my_dpi, 900/my_dpi), dpi=my_dpi)
-meandata = np.mean(data, axis=0)
+meandata = np.mean(data, axis=0, dtype=float)
 dum = range(0,FFTSize)
 x = [(x*RBW+StartFreq*1e6)/1e6 for x in dum]
 plt.plot(x,meandata)
